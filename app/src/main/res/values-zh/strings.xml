@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">VPLM</string>
+    <string name="app_name">VPLMX</string>
     <string name="setting">设置</string>
-    <string name="circle_layout_manger">Circle LayoutManager</string>
-    <string name="circle_scale_layout_manager">Circle Scale LayoutManager</string>
-    <string name="carousel_layout_manager">Carousel LayoutManager</string>
-    <string name="gallery_layout_manager">Gallery LayoutManager</string>
-    <string name="rotate_layout_manager">Rotate LayoutManager</string>
-    <string name="scale_layout_manager">Scale LayoutManager</string>
+    <string name="circle_layout_manger">Circle LayoutManagerX</string>
+    <string name="circle_scale_layout_manager">Circle Scale LayoutManagerX</string>
+    <string name="carousel_layout_manager">Carousel LayoutManager </string>
+    <string name="gallery_layout_manager">Gallery LayoutManagerX</string>
+    <string name="rotate_layout_manager">Rotate LayoutManagerX</string>
+    <string name="scale_layout_manager">Scale LayoutManagerX</string>
 
     <string name="radius">半径</string>
     <string name="item_space">间距</string>

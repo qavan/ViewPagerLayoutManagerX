@@ -7,9 +7,9 @@
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context="rouchuan.viewpagerlayoutmanager.MainActivity">
+    tools:context=".MainActivity">
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_circle"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -17,7 +17,7 @@
         android:text="@string/circle_layout_manger"
         app:textAllCaps="false" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_scale"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -25,7 +25,7 @@
         android:text="@string/scale_layout_manager"
         app:textAllCaps="false" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_circle_scale"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -33,7 +33,7 @@
         android:text="@string/circle_scale_layout_manager"
         app:textAllCaps="false" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_elevate_scale"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -41,7 +41,7 @@
         android:text="@string/carousel_layout_manager"
         app:textAllCaps="false" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_gallery"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -49,7 +49,7 @@
         android:text="@string/gallery_layout_manager"
         app:textAllCaps="false" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_rotate"
         android:layout_width="match_parent"
         android:layout_height="48dp"

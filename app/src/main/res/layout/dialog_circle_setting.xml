@@ -116,7 +116,7 @@
             android:text="@string/toggle_reverse"
             android:textColor="#fff" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/s_reverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             android:text="@string/toggle_infinite"
             android:textColor="#fff" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/s_infinite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
             android:text="@string/toggle_auto_center"
             android:textColor="#fff" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/s_auto_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
             android:text="@string/flip_rotate"
             android:textColor="#fff" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/s_flip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
             android:textColor="#fff"
             app:buttonTint="@color/colorAccent" />
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
             android:textColor="#fff"
             app:buttonTint="@color/colorAccent" />
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
             android:textColor="#fff"
             app:buttonTint="@color/colorAccent" />
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -240,7 +240,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_left_on_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
             android:textColor="#fff"
             app:buttonTint="@color/colorAccent" />
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_right_on_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
             android:textColor="#fff"
             app:buttonTint="@color/colorAccent" />
 
-        <android.support.v7.widget.AppCompatRadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_center_on_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

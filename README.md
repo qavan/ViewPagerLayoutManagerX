@@ -82,9 +82,9 @@ Maven:
 
 ```xml
 <dependency>
-  <groupId>rouchuan.viewpagerlayoutmanager</groupId>
-  <artifactId>viewpagerlayoutmanager</artifactId>
-  <version>2.x.y</version>
+  <groupId>com.qavan.viewpagerlayoutmanagerx</groupId>
+  <artifactId>viewpagerlayoutmanagerx</artifactId>
+  <version>1.x.y</version>
   <type>pom</type>
 </dependency>
 ```

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rouchuan.viewpagerlayoutmanager">
+    package="com.qavan.viewpagerlayoutmanagerx">
 
     <application
         android:allowBackup="false"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="rouchuan.viewpagerlayoutmanager.MainActivity">
+        <activity android:name="com.qavan.viewpagerlayoutmanagerx.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,23 +16,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".circle.CircleLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.circle.CircleLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
         <activity
-            android:name=".circlescale.CircleScaleLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.circlescale.CircleScaleLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
         <activity
-            android:name=".scale.ScaleLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.scale.ScaleLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
         <activity
-            android:name=".gallery.GalleryLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.gallery.GalleryLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
         <activity
-            android:name=".carousel.CarouselLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.carousel.CarouselLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
         <activity
-            android:name=".rotate.RotateLayoutActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.qavan.viewpagerlayoutmanagerx.rotate.RotateLayoutActivity"
+            android:parentActivityName="com.qavan.viewpagerlayoutmanagerx.MainActivity" />
     </application>
 
 </manifest>
