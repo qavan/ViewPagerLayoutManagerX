@@ -128,7 +128,7 @@ open class CenterSnapHelper : OnFlingListener() {
     }
 
     fun snapToCenterView(layoutManager: ViewPagerLayoutManager?,
-                         listener: ViewPagerLayoutManager.OnPageChangeListener?) {
+                         listener: ViewPagerLayoutManager.OnPageChangeListenerKX?) {
         val delta = layoutManager!!.offsetToCenter
 
         if (delta != 0) {

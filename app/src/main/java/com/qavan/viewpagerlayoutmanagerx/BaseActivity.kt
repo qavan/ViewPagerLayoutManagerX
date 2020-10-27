@@ -17,8 +17,7 @@ import com.qavan.ViewPagerLayoutManager
  */
 abstract class BaseActivity<V : ViewPagerLayoutManager?, S : SettingPopUpWindow?> : AppCompatActivity() {
 
-    var recyclerView: RecyclerView? = null
-        private set
+    lateinit var recyclerView: RecyclerView
 
     var viewPagerLayoutManager: V? = null
         private set
@@ -37,10 +36,10 @@ abstract class BaseActivity<V : ViewPagerLayoutManager?, S : SettingPopUpWindow?
         viewPagerLayoutManager = createLayoutManager()
         val dataAdapter = DataAdapter{ v, pos ->
             Toast.makeText(v.context, "clicked:$pos", Toast.LENGTH_SHORT).show()
-            ScrollHelper.smoothScrollToTargetView(recyclerView, v)
+            ScrollHelper.smoothScrollToPosition(recyclerView, viewPagerLayoutManager as ViewPagerLayoutManager, pos)
         }
-        recyclerView!!.adapter = dataAdapter
-        recyclerView!!.layoutManager = viewPagerLayoutManager
+        recyclerView.adapter = dataAdapter
+        recyclerView.layoutManager = viewPagerLayoutManager
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
