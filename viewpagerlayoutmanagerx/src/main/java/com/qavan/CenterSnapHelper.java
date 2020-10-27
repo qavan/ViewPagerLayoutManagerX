@@ -6,6 +6,8 @@ import android.widget.Scroller;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class intended to support snapping for a {@link RecyclerView}
  * which use {@link ViewPagerLayoutManager} as its {@link RecyclerView.LayoutManager}.
@@ -32,13 +34,12 @@ public class CenterSnapHelper extends RecyclerView.OnFlingListener {
                 boolean mScrolled = false;
 
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                public void onScrollStateChanged(@NotNull RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
 
                     final ViewPagerLayoutManager layoutManager =
                             (ViewPagerLayoutManager) recyclerView.getLayoutManager();
-                    final ViewPagerLayoutManager.OnPageChangeListener onPageChangeListener =
-                            layoutManager.onPageChangeListener;
+                    final ViewPagerLayoutManager.OnPageChangeListener onPageChangeListener = layoutManager.onPageChangeListener;
                     if (onPageChangeListener != null) {
                         onPageChangeListener.onPageScrollStateChanged(newState);
                     }
@@ -55,7 +56,7 @@ public class CenterSnapHelper extends RecyclerView.OnFlingListener {
                 }
 
                 @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
                     if (dx != 0 || dy != 0) {
                         mScrolled = true;
                     }
@@ -68,8 +69,7 @@ public class CenterSnapHelper extends RecyclerView.OnFlingListener {
         if (layoutManager == null) {
             return false;
         }
-        RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
-        if (adapter == null) {
+        if (mRecyclerView.getAdapter() == null) {
             return false;
         }
 

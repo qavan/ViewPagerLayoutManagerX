@@ -194,11 +194,12 @@ public class CircleScaleLayoutManager extends ViewPagerLayoutManager {
 
     @Override
     protected int calItemLeft(View itemView, float targetOffset) {
+        double sin = Math.sin(Math.toRadians(90 - targetOffset));
         switch (gravity) {
             case LEFT:
-                return (int) (radius * Math.sin(Math.toRadians(90 - targetOffset)) - radius);
+                return (int) (radius * sin - radius);
             case RIGHT:
-                return (int) (radius - radius * Math.sin(Math.toRadians(90 - targetOffset)));
+                return (int) (radius - radius * sin);
             case TOP:
             case BOTTOM:
             default:
@@ -208,15 +209,17 @@ public class CircleScaleLayoutManager extends ViewPagerLayoutManager {
 
     @Override
     protected int calItemTop(View itemView, float targetOffset) {
+        double sin = Math.sin(Math.toRadians(90 - targetOffset));
         switch (gravity) {
             case LEFT:
             case RIGHT:
                 return (int) (radius * Math.cos(Math.toRadians(90 - targetOffset)));
             case TOP:
-                return (int) (radius * Math.sin(Math.toRadians(90 - targetOffset)) - radius);
+                return (int) (radius * sin - radius);
             case BOTTOM:
             default:
-                return (int) (radius - radius * Math.sin(Math.toRadians(90 - targetOffset)));
+                return (int) (radius - radius * sin);
+
         }
     }
 

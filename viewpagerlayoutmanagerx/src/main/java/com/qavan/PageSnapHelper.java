@@ -15,8 +15,8 @@ public class PageSnapHelper extends CenterSnapHelper {
         if (layoutManager == null) {
             return false;
         }
-        RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
-        if (adapter == null) {
+
+        if (mRecyclerView.getAdapter() == null) {
             return false;
         }
 

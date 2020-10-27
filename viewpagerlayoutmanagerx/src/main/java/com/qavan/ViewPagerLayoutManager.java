@@ -11,6 +11,8 @@ import android.view.animation.Interpolator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 /**
@@ -432,7 +434,7 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
     }
 
     @Override
-    public boolean onAddFocusables(RecyclerView recyclerView, ArrayList<View> views, int direction, int focusableMode) {
+    public boolean onAddFocusables(@NotNull RecyclerView recyclerView, @NotNull ArrayList<View> views, int direction, int focusableMode) {
         final int currentPosition = getCurrentPosition();
         final View currentView = findViewByPosition(currentPosition);
         if (currentView == null) return true;
