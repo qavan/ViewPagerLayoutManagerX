@@ -31,7 +31,7 @@ dependencies {
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-def currentVersion = '3.0.2'
+def currentVersion = '3.0.3'
 def versionDes = 'Migarted to kotlin and androidx'
 def websiteUrl = 'https://github.com/com.qavan/ViewPagerLayoutManagerX'
 def date = new Date()

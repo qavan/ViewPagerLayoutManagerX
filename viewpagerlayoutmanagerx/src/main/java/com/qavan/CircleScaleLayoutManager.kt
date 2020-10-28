@@ -26,7 +26,9 @@ class CircleScaleLayoutManager private constructor(
         maxVisibleItemCount: Int,
         distanceToBottom: Int,
         reverseLayout: Boolean,
-        rotatingGone: Boolean
+        rotatingGone: Boolean,
+        scaleRadiusX: Float,
+        scaleRadiusY: Float,
 ) : ViewPagerLayoutManager(context, HORIZONTAL, reverseLayout) {
 
     companion object {
@@ -100,6 +102,22 @@ class CircleScaleLayoutManager private constructor(
             requestLayout()
         }
 
+    var scaleRadiusX: Float = 1f
+        set(scaleRadiusX) {
+            assertNotInLayoutOrScroll(null)
+            if (field == scaleRadiusX) return
+            field = scaleRadiusX
+            requestLayout()
+        }
+
+    var scaleRadiusY: Float = 1f
+        set(scaleRadiusY) {
+            assertNotInLayoutOrScroll(null)
+            if (field == scaleRadiusY) return
+            field = scaleRadiusY
+            requestLayout()
+        }
+
     var gravity: Int = BOTTOM
         set(gravity) {
             assertNotInLayoutOrScroll(null)
@@ -153,6 +171,8 @@ class CircleScaleLayoutManager private constructor(
         this.flipRotate = flipRotate
         this.zAlignment = zAlignment
         this.rotatingGone = rotatingGone
+        this.scaleRadiusX = scaleRadiusX
+        this.scaleRadiusY = scaleRadiusY
     }
 
     constructor(context: Context?) : this(Builder(context))
@@ -179,7 +199,9 @@ class CircleScaleLayoutManager private constructor(
             builder.maxVisibleItemCount,
             builder.distanceToBottom,
             builder.reverseLayout,
-            builder.rotatingGone
+            builder.rotatingGone,
+            builder.scaleRadiusX,
+            builder.scaleRadiusY
     )
 
     override fun setInterval(): Float = angleInterval.toFloat()
@@ -191,20 +213,20 @@ class CircleScaleLayoutManager private constructor(
     override fun calItemLeft(itemView: View?, targetOffset: Float): Int {
         val sin = sin(Math.toRadians(90 - targetOffset.toDouble()))
         return when (gravity) {
-            LEFT -> (radius * sin - radius).toInt()
-            RIGHT -> (radius - radius * sin).toInt()
-            TOP, BOTTOM -> (radius * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
-            else -> (radius * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
+            LEFT -> (radius * scaleRadiusX * sin - radius * scaleRadiusX ).toInt()
+            RIGHT -> (radius* scaleRadiusX  - radius * scaleRadiusX * sin).toInt()
+            TOP, BOTTOM -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
+            else -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
         }
     }
 
     override fun calItemTop(itemView: View?, targetOffset: Float): Int {
         val sin = sin(Math.toRadians(90 - targetOffset.toDouble()))
         return when (gravity) {
-            LEFT, RIGHT -> (radius * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
-            TOP -> (radius * sin - radius).toInt()
-            BOTTOM -> (radius - radius * sin).toInt()
-            else -> (radius - radius * sin).toInt()
+            LEFT, RIGHT -> (radius * scaleRadiusY * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
+            TOP -> (radius * scaleRadiusY * sin - radius * scaleRadiusY).toInt()
+            BOTTOM -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt()
+            else -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt()
         }
     }
 
@@ -281,7 +303,9 @@ class CircleScaleLayoutManager private constructor(
             var zAlignment: Int = CENTER_ON_TOP,
             var maxVisibleItemCount: Int = DETERMINE_BY_MAX_AND_MIN,
             var distanceToBottom: Int = INVALID_SIZE,
-            var rotatingGone: Boolean = false
+            var rotatingGone: Boolean = false,
+            var scaleRadiusX: Float = 1f,
+            var scaleRadiusY: Float = 1f,
     ) {
 
         fun setRadius(radius: Int): Builder {
@@ -311,6 +335,16 @@ class CircleScaleLayoutManager private constructor(
 
         fun setMinRemoveAngle(minRemoveAngle: Float): Builder {
             this.minRemoveAngle = minRemoveAngle
+            return this
+        }
+
+        fun setScaleRadiusX(scaleRadiusX: Float): Builder {
+            this.scaleRadiusX = scaleRadiusX
+            return this
+        }
+
+        fun setScaleRadiusY(scaleRadiusY: Float): Builder {
+            this.scaleRadiusY = scaleRadiusY
             return this
         }
 
