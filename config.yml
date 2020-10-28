@@ -1,0 +1,2 @@
+- name: action-maven-publish
+  uses: samuelmeuli/action-maven-publish@v1.4.0
