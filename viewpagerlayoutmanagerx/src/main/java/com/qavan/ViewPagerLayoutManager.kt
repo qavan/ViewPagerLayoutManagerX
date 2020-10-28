@@ -810,15 +810,13 @@ abstract class ViewPagerLayoutManager @JvmOverloads constructor(
 
     private class SavedState : Parcelable {
 
-        companion object {
-            val CREATOR: Any = object : Parcelable.Creator<SavedState?> {
-                override fun createFromParcel(`in`: Parcel): SavedState? {
-                    return SavedState(`in`)
-                }
+        val CREATOR: Any = object : Parcelable.Creator<SavedState?> {
+            override fun createFromParcel(`in`: Parcel): SavedState? {
+                return SavedState(`in`)
+            }
 
-                override fun newArray(size: Int): Array<SavedState?> {
-                    return arrayOfNulls(size)
-                }
+            override fun newArray(size: Int): Array<SavedState?> {
+                return arrayOfNulls(size)
             }
         }
 

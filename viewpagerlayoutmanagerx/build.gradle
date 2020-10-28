@@ -1,5 +1,3 @@
-import groovy.json.JsonBuilder
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -31,101 +29,47 @@ dependencies {
 }
 
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
-def currentVersion = '1.0.0'
-def versionDes = 'Fix bugs'
+def currentVersion = '3.0.2'
+def versionDes = 'Migarted to kotlin and androidx'
 def websiteUrl = 'https://github.com/com.qavan/ViewPagerLayoutManagerX'
 def date = new Date()
-def projectName = 'viewpager-layout-managerx'
+def projectName = 'viewpagerlayoutmanagerx'
 
-task createPom {
-    doLast {
-        pom {
-            project {
-                groupId 'com.qavan.viewpagerlayoutmanagerx'
-                artifactId 'viewpagerlayoutmanagerx'
-                version currentVersion
-                packaging 'aar'
-                name projectName
-                url websiteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+apply plugin: 'maven-publish'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "release-$currentVersion"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId 'io.github.qavan'
+            artifactId projectName
+            version currentVersion
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/$projectName-$currentVersion"+".aar")
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    if(it.group != null && (it.name != null || "unspecified" == it.name) && it.version != null)
+                    {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
                     }
-                }
-                developers {
-                    developer {
-                        id 'com.qavan'
-                        name 'Aleksandrov Nikolay'
-                        email 'pro100qavan@gmail.com'
-                    }
-                }
-                scm {
-                    connection "${websiteUrl}.git"
-                    developerConnection "${websiteUrl}.git"
-                    url websiteUrl
                 }
             }
-        }.writeTo("build/viewpagerlayoutmanagerx-${currentVersion}.pom")
-    }
-
-    def builder = new JsonBuilder()
-    def root = builder {
-        'package' {
-            name projectName
-            repo 'maven'
-            subject 'com.qavan'
-            desc 'ViewPager like LayoutManager which supports some awesome animations and infinite scroll.'
-            website_url websiteUrl
-            issue_tracker_url "$websiteUrl/issues"
-            vcs_url "${websiteUrl}.git"
-            github_use_tag_release_notes true
-            github_release_notes_file 'RELEASE_NOTE.md'
-            labels "android", "layoutManager"
-            public_download_numbers false
-            public_stats false
         }
-        'version' {
-            name currentVersion
-            desc versionDes
-            released date.format('yyyy-MM-dd')
-            vcs_tag "v${currentVersion}"
-            gpgSign false
-        }
-        publish true
     }
-    root.files = []
-    root.files.add([
-            'includePattern': 'viewpagerlayoutmanagerx/build/libs/(.*\\.jar)',
-            'uploadPattern' : "com.qavan/viewpagerlayoutmanagerx/viewpagerlayoutmanagerx/$currentVersion/\$1",
-            'matrixParams'  : ['override': 1]
-    ])
-    root.files.add([
-            'includePattern': 'viewpagerlayoutmanagerx/build/(.*\\.pom)',
-            'uploadPattern' : "com.qavan/viewpagerlayoutmanagerx/viewpagerlayoutmanagerx/$currentVersion/\$1",
-            'matrixParams'  : ['override': 1]
-    ])
-    root.files.add([
-            'includePattern': 'viewpagerlayoutmanagerx/build/outputs/aar/(.*release\\.aar)',
-            'uploadPattern' : "com.qavan/viewpagerlayoutmanagerx/viewpagerlayoutmanagerx/$currentVersion/viewpagerlayoutmanagerx-${currentVersion}.aar",
-            'matrixParams'  : ['override': 1]
-    ])
-
-    def jsonFile = new File("descriptor.json")
-    jsonFile.write(builder.toPrettyString())
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = currentVersion
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-build.dependsOn('createPom')
-repositories {
-    mavenCentral()
+    repositories {
+        maven {
+            url = "$buildDir/repo"
+        }
+    }
 }

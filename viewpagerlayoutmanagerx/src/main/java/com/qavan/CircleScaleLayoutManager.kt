@@ -25,7 +25,8 @@ class CircleScaleLayoutManager private constructor(
         flipRotate: Boolean,
         maxVisibleItemCount: Int,
         distanceToBottom: Int,
-        reverseLayout: Boolean
+        reverseLayout: Boolean,
+        rotatingGone: Boolean
 ) : ViewPagerLayoutManager(context, HORIZONTAL, reverseLayout) {
 
     companion object {
@@ -113,6 +114,15 @@ class CircleScaleLayoutManager private constructor(
             requestLayout()
         }
 
+    var zAlignment: Int = CENTER_ON_TOP
+        set(zAlignment) {
+            assertNotInLayoutOrScroll(null)
+            assertZAlignmentState(zAlignment)
+            if (field == zAlignment) return
+            field = zAlignment
+            requestLayout()
+        }
+
     var flipRotate: Boolean = false
         set(flipRotate) {
             assertNotInLayoutOrScroll(null)
@@ -121,12 +131,11 @@ class CircleScaleLayoutManager private constructor(
             requestLayout()
         }
 
-    var zAlignment: Int = CENTER_ON_TOP
-        set(zAlignment) {
+    var rotatingGone: Boolean = false
+        set(rotatingGone) {
             assertNotInLayoutOrScroll(null)
-            assertZAlignmentState(zAlignment)
-            if (field == zAlignment) return
-            field = zAlignment
+            if (field == rotatingGone) return
+            field = rotatingGone
             requestLayout()
         }
 
@@ -143,6 +152,7 @@ class CircleScaleLayoutManager private constructor(
         this.gravity = gravity
         this.flipRotate = flipRotate
         this.zAlignment = zAlignment
+        this.rotatingGone = rotatingGone
     }
 
     constructor(context: Context?) : this(Builder(context))
@@ -168,7 +178,8 @@ class CircleScaleLayoutManager private constructor(
             builder.flipRotate,
             builder.maxVisibleItemCount,
             builder.distanceToBottom,
-            builder.reverseLayout
+            builder.reverseLayout,
+            builder.rotatingGone
     )
 
     override fun setInterval(): Float = angleInterval.toFloat()
@@ -207,10 +218,12 @@ class CircleScaleLayoutManager private constructor(
                     scale = (centerScale - 1f) / -angleInterval * diff + centerScale
                 }
             } else {
-                itemView?.rotation = 360 - targetOffset
-                if (targetOffset < angleInterval && targetOffset > -angleInterval) {
-                    val diff = abs(abs(360 - itemView!!.rotation - angleInterval) - angleInterval)
-                    scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                if (rotatingGone) {
+                    itemView?.rotation = 360 - targetOffset
+                    if (targetOffset < angleInterval && targetOffset > -angleInterval) {
+                        val diff = abs(abs(360 - itemView!!.rotation - angleInterval) - angleInterval)
+                        scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                    }
                 }
             }
             LEFT, BOTTOM -> if (flipRotate) {
@@ -220,10 +233,12 @@ class CircleScaleLayoutManager private constructor(
                     scale = (centerScale - 1f) / -angleInterval * diff + centerScale
                 }
             } else {
-                itemView?.rotation = targetOffset
-                if (targetOffset < angleInterval && targetOffset > -angleInterval) {
-                    val diff = abs(abs(itemView!!.rotation - angleInterval) - angleInterval)
-                    scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                if (rotatingGone) {
+                    itemView?.rotation = targetOffset
+                    if (targetOffset < angleInterval && targetOffset > -angleInterval) {
+                        val diff = abs(abs(itemView!!.rotation - angleInterval) - angleInterval)
+                        scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                    }
                 }
             }
             else -> if (flipRotate) {
@@ -233,10 +248,12 @@ class CircleScaleLayoutManager private constructor(
                     scale = (centerScale - 1f) / -angleInterval * diff + centerScale
                 }
             } else {
-                itemView?.rotation = targetOffset
-                if (targetOffset < angleInterval && targetOffset > -angleInterval) {
-                    val diff = abs(abs(itemView!!.rotation - angleInterval) - angleInterval)
-                    scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                if (rotatingGone) {
+                    itemView?.rotation = targetOffset
+                    if (targetOffset < angleInterval && targetOffset > -angleInterval) {
+                        val diff = abs(abs(itemView!!.rotation - angleInterval) - angleInterval)
+                        scale = (centerScale - 1f) / -angleInterval * diff + centerScale
+                    }
                 }
             }
         }
@@ -263,7 +280,8 @@ class CircleScaleLayoutManager private constructor(
             var flipRotate: Boolean = false,
             var zAlignment: Int = CENTER_ON_TOP,
             var maxVisibleItemCount: Int = DETERMINE_BY_MAX_AND_MIN,
-            var distanceToBottom: Int = INVALID_SIZE
+            var distanceToBottom: Int = INVALID_SIZE,
+            var rotatingGone: Boolean = false
     ) {
 
         fun setRadius(radius: Int): Builder {
@@ -325,6 +343,11 @@ class CircleScaleLayoutManager private constructor(
 
         fun setDistanceToBottom(distanceToBottom: Int): Builder {
             this.distanceToBottom = distanceToBottom
+            return this
+        }
+
+        fun setRotatingGone(rotatingGone: Boolean): Builder {
+            this.rotatingGone = rotatingGone
             return this
         }
 
