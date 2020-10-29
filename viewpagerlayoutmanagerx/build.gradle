@@ -31,7 +31,7 @@ dependencies {
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-def currentVersion = '3.3'
+def currentVersion = '3.3.1'
 def projectName = 'viewpagerlayoutmanagerx'
 
 task sourceJar(type: Jar) {
@@ -61,10 +61,9 @@ publishing {
                 }
             }
         }
-    }
-    repositories {
-        maven {
-            url = "$buildDir/repo"
+        release() {
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/$projectName-release.aar")
         }
     }
 }
