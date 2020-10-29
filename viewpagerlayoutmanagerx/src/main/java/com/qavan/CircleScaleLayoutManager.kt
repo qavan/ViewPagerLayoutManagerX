@@ -29,6 +29,8 @@ class CircleScaleLayoutManager private constructor(
         rotatingGone: Boolean,
         scaleRadiusX: Float,
         scaleRadiusY: Float,
+        centerOffsetX: Int,
+        centerOffsetY: Int,
 ) : ViewPagerLayoutManager(context, HORIZONTAL, reverseLayout) {
 
     companion object {
@@ -141,6 +143,22 @@ class CircleScaleLayoutManager private constructor(
             requestLayout()
         }
 
+    var centerOffsetX: Int = 0
+        set(centerOffsetX) {
+            assertNotInLayoutOrScroll(null)
+            if (field == centerOffsetX) return
+            field = centerOffsetX
+            requestLayout()
+        }
+
+    var centerOffsetY: Int = 0
+        set(centerOffsetY) {
+            assertNotInLayoutOrScroll(null)
+            if (field == centerOffsetY) return
+            field = centerOffsetY
+            requestLayout()
+        }
+
     var flipRotate: Boolean = false
         set(flipRotate) {
             assertNotInLayoutOrScroll(null)
@@ -173,6 +191,8 @@ class CircleScaleLayoutManager private constructor(
         this.rotatingGone = rotatingGone
         this.scaleRadiusX = scaleRadiusX
         this.scaleRadiusY = scaleRadiusY
+        this.centerOffsetX = centerOffsetX
+        this.centerOffsetY = centerOffsetY
     }
 
     constructor(context: Context?) : this(Builder(context))
@@ -201,7 +221,9 @@ class CircleScaleLayoutManager private constructor(
             builder.reverseLayout,
             builder.rotatingGone,
             builder.scaleRadiusX,
-            builder.scaleRadiusY
+            builder.scaleRadiusY,
+            builder.centerOffsetX,
+            builder.centerOffsetY
     )
 
     override fun setInterval(): Float = angleInterval.toFloat()
@@ -213,20 +235,20 @@ class CircleScaleLayoutManager private constructor(
     override fun calItemLeft(itemView: View?, targetOffset: Float): Int {
         val sin = sin(Math.toRadians(90 - targetOffset.toDouble()))
         return when (gravity) {
-            LEFT -> (radius * scaleRadiusX * sin - radius * scaleRadiusX ).toInt()
-            RIGHT -> (radius* scaleRadiusX  - radius * scaleRadiusX * sin).toInt()
-            TOP, BOTTOM -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
-            else -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
+            LEFT -> (radius * scaleRadiusX * sin - radius * scaleRadiusX ).toInt() - centerOffsetX
+            RIGHT -> (radius* scaleRadiusX  - radius * scaleRadiusX * sin).toInt() - centerOffsetX
+            TOP, BOTTOM -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt() - centerOffsetX
+            else -> (radius * scaleRadiusX  * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt() - centerOffsetX
         }
     }
 
     override fun calItemTop(itemView: View?, targetOffset: Float): Int {
         val sin = sin(Math.toRadians(90 - targetOffset.toDouble()))
         return when (gravity) {
-            LEFT, RIGHT -> (radius * scaleRadiusY * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt()
-            TOP -> (radius * scaleRadiusY * sin - radius * scaleRadiusY).toInt()
-            BOTTOM -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt()
-            else -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt()
+            LEFT, RIGHT -> (radius * scaleRadiusY * cos(Math.toRadians(90 - targetOffset.toDouble()))).toInt() - centerOffsetY
+            TOP -> (radius * scaleRadiusY * sin - radius * scaleRadiusY).toInt() - centerOffsetY
+            BOTTOM -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt() - centerOffsetY
+            else -> (radius * scaleRadiusY - radius * scaleRadiusY * sin).toInt() - centerOffsetY
         }
     }
 
@@ -306,6 +328,8 @@ class CircleScaleLayoutManager private constructor(
             var rotatingGone: Boolean = false,
             var scaleRadiusX: Float = 1f,
             var scaleRadiusY: Float = 1f,
+            var centerOffsetX: Int = 0,
+            var centerOffsetY: Int = 0,
     ) {
 
         fun setRadius(radius: Int): Builder {
@@ -377,6 +401,16 @@ class CircleScaleLayoutManager private constructor(
 
         fun setDistanceToBottom(distanceToBottom: Int): Builder {
             this.distanceToBottom = distanceToBottom
+            return this
+        }
+
+        fun setCenterOffsetX(centerOffsetX: Int): Builder {
+            this.centerOffsetX = centerOffsetX
+            return this
+        }
+
+        fun setCenterOffsetY(centerOffsetY: Int): Builder {
+            this.centerOffsetY = centerOffsetY
             return this
         }
 
