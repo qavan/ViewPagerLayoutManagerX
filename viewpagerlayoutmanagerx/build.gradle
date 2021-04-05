@@ -33,7 +33,7 @@ dependencies {
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-def currentVersion = '3.4'
+def currentVersion = '3.4F'
 def projectName = 'viewpagerlayoutmanagerx'
 
 task sourceJar(type: Jar) {
@@ -48,7 +48,7 @@ publishing {
             artifactId projectName
             version currentVersion
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/$projectName-release.aar")
+            artifact("$rootDir/$projectName/build/outputs/aar/$projectName-release.aar")
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
                 //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
@@ -66,7 +66,7 @@ publishing {
     }
     repositories {
         maven {
-            url = "$buildDir/repo"
+            url = "$rootDir/repo"
         }
     }
 }
