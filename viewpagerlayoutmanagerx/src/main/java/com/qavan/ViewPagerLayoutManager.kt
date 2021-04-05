@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.qavan.ScrollHelper.smoothScrollToPosition
+import kotlinx.parcelize.Parcelize
 import java.util.*
 import kotlin.math.*
 
@@ -808,45 +809,16 @@ abstract class ViewPagerLayoutManager @JvmOverloads constructor(
         return mSmoothScrollbarEnabled
     }
 
-    private class SavedState : Parcelable {
+    @Parcelize
+    private data class SavedState constructor(
+        var position: Int = 0,
+        var offset: Float = 0f,
+        var isReverseLayout: Boolean = false,
+    ) : Parcelable {
 
-        val CREATOR: Any = object : Parcelable.Creator<SavedState?> {
-            override fun createFromParcel(`in`: Parcel): SavedState? {
-                return SavedState(`in`)
-            }
+        constructor(`in`: Parcel): this(`in`.readInt(), `in`.readFloat(), `in`.readInt() == 1)
+        constructor(other: SavedState): this(other.position, other.offset, other.isReverseLayout)
 
-            override fun newArray(size: Int): Array<SavedState?> {
-                return arrayOfNulls(size)
-            }
-        }
-
-        var position = 0
-        var offset = 0f
-        var isReverseLayout = false
-
-        constructor()
-
-        constructor(`in`: Parcel) {
-            position = `in`.readInt()
-            offset = `in`.readFloat()
-            isReverseLayout = `in`.readInt() == 1
-        }
-
-        constructor(other: SavedState) {
-            position = other.position
-            offset = other.offset
-            isReverseLayout = other.isReverseLayout
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        override fun writeToParcel(dest: Parcel, flags: Int) {
-            dest.writeInt(position)
-            dest.writeFloat(offset)
-            dest.writeInt(if (isReverseLayout) 1 else 0)
-        }
     }
 
     interface OnPageChangeListenerKX {
