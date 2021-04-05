@@ -33,12 +33,13 @@ dependencies {
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-def currentVersion = '3.3.2'
+def currentVersion = '3.3.2F'
 def projectName = 'viewpagerlayoutmanagerx'
+def artifactPath = "$buildDir/outputs/aar/$projectName-$currentVersion-release.aar"
 
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier "release"
+    classifier "$currentVersion-release"
 }
 
 publishing {
@@ -48,7 +49,7 @@ publishing {
             artifactId projectName
             version currentVersion
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/$projectName-release.aar")
+            artifact(artifactPath)
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
                 //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
@@ -65,7 +66,7 @@ publishing {
         }
         release() {
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/$projectName-release.aar")
+            artifact(artifactPath)
         }
     }
 }
